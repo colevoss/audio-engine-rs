@@ -1,0 +1,15 @@
+[package]
+name = "async-stuff"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+parking_lot = { version = "0.12.1" }
+symphonia = { version = "0.5.1" }
+crossbeam = { version = "0.8.2" }
+cpal = { version = "0.14.0" }
+hound = { version = "3.5.0" }
+rubato = { version = "0.12.0" }
