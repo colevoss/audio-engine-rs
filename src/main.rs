@@ -6,6 +6,7 @@ pub mod builder;
 mod channer;
 mod engine;
 mod frame;
+mod sample_rate;
 mod source;
 mod source_reader;
 mod symph;
