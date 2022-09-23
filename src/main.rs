@@ -1,11 +1,16 @@
-use engine::Engine;
+pub use crate::builder::*;
+use engine::{Engine, EngineController};
 use tokio;
 
+pub mod builder;
+mod channer;
 mod engine;
 mod frame;
 mod source;
 mod source_reader;
 mod symph;
+mod track;
+
 // use tokio::sync::mpsc;
 
 // struct IState {
@@ -16,12 +21,18 @@ mod symph;
 
 #[tokio::main]
 async fn main() {
-    let controller = Engine::new().unwrap();
+    let controller = EngineController::new().unwrap();
 
     // controller.open_source_reader("sounds/sample-1.wav".to_string());
     // controller.open_source_reader("sounds/sample-2.wav".to_string());
     // controller.open_source_reader("sounds/sample-3.wav".to_string());
-    controller.open_source_reader("sounds/sample-4.wav".to_string());
+    // controller.open_source_reader("sounds/sample-3.wav".to_string());
+    controller.open_source_reader("sounds/sample-3.wav".to_string());
+    // controller.open_source_reader("sounds/sample-3.wav".to_string());
+    // controller.open_source_reader("sounds/sample-3.wav".to_string());
+    // controller.open_source_reader("sounds/sample-4.wav".to_string());
+    // controller.open_source_reader("sounds/sample-5.wav".to_string());
+    // controller.open_source_reader("sounds/silence.wav".to_string());
 
     controller.play().await;
 

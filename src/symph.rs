@@ -54,13 +54,15 @@ impl Symphonia {
         let spec = decoded.spec().to_owned();
         let buffer = Self::get_new_buffer(decoded, &spec);
 
-        return Ok(Symphonia {
+        let symp = Symphonia {
             buffer,
             decoder,
             format,
             spec,
             current_frame: 0,
-        });
+        };
+
+        Ok(symp)
     }
 
     fn get_new_buffer(decoded: AudioBufferRef, spec: &SignalSpec) -> SampleBuffer<f32> {
@@ -90,6 +92,7 @@ impl Iterator for Symphonia {
 
     #[inline]
     fn next(&mut self) -> Option<f32> {
+        // println!("Channel: {}", self.current_frame % self.channels());
         if self.current_frame == self.buffer.len() {
             let decoded = loop {
                 let packet = match self.format.next_packet() {

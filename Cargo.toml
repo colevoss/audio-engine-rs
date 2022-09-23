@@ -1,5 +1,5 @@
 [package]
-name = "async-stuff"
+name = "async_stuff"
 version = "0.1.0"
 edition = "2021"
 
@@ -13,3 +13,18 @@ crossbeam = { version = "0.8.2" }
 cpal = { version = "0.14.0" }
 hound = { version = "3.5.0" }
 rubato = { version = "0.12.0" }
+
+[dev-dependencies]
+criterion = { version = "0.4.0", features = ["html_reports"] }
+
+[[bench]]
+name = "benchmarks"
+harness = false
+
+[[bin]]
+name = "async-stuff"
+path = "src/main.rs"
+
+[lib]
+name = "dawlib"
+path = "src/lib.rs"
