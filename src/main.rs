@@ -3,14 +3,14 @@ use engine::{Engine, EngineController};
 use tokio;
 
 pub mod builder;
-mod channer;
-mod engine;
-mod frame;
-mod sample_rate;
-mod source;
-mod source_reader;
-mod symph;
-mod track;
+pub mod channer;
+pub mod engine;
+pub mod frame;
+pub mod sample_rate;
+pub mod source;
+pub mod source_reader;
+pub mod symph;
+pub mod track;
 
 // use tokio::sync::mpsc;
 
@@ -35,7 +35,7 @@ async fn main() {
     // controller.open_source_reader("sounds/sample-5.wav".to_string());
     // controller.open_source_reader("sounds/silence.wav".to_string());
 
-    controller.play().await;
+    // controller.play().await;
 
     loop {}
 }

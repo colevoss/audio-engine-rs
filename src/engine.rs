@@ -73,6 +73,9 @@ impl Engine {
 
         Ok(stream)
     }
+
+    // pub fn send(&self, sample: f32) {
+    // }
 }
 
 pub struct EngineController {
@@ -83,7 +86,7 @@ pub struct EngineController {
     command_rx: Receiver<EngineCommand>,
     // command_tx: broadcast::Sender<EngineCommand>,
     // command_rx: broadcast::Receiver<EngineCommand>,
-    prod: Sender<f32>,
+    pub prod: Sender<f32>,
     config: SupportedStreamConfig,
     engine_state: Arc<RwLock<EngineStateMachine>>,
 }
@@ -122,8 +125,12 @@ impl EngineController {
         Ok(controller)
     }
 
+    pub fn engine(&self) -> Arc<Mutex<Engine>> {
+        self.engine.clone()
+    }
+
     pub fn add(&self, decoder: Symphonia) {
-        let reader = SourceReader::new(decoder, self.config.clone());
+        let reader = SourceReader::new(decoder, self.config.config());
         self.sources.lock().add(reader);
     }
 
@@ -132,7 +139,8 @@ impl EngineController {
         self.add(source);
     }
 
-    pub async fn play(&self) {
+    // pub async fn play(&self) {
+    pub fn play(&self) {
         let sources = self.sources.clone();
         let sender = self.prod.clone();
         let engine = self.engine.clone();
@@ -155,15 +163,15 @@ impl EngineController {
         // });
 
         // tokio::spawn(async move {
-        thread::spawn(move || {
-            let mut sources_lock = sources.lock();
-            while let Some(sample) = sources_lock.next() {
-                match sender.send(sample) {
-                    Err(err) => eprintln!("Send Err: {}", err),
-                    _ => (),
-                }
-            }
-        });
+        // thread::spawn(move || {
+        //     let mut sources_lock = sources.lock();
+        //     while let Some(sample) = sources_lock.next() {
+        //         match sender.send(sample) {
+        //             Err(err) => eprintln!("Send Err: {}", err),
+        //             _ => (),
+        //         }
+        //     }
+        // });
 
         self.engine_state.write().play();
     }

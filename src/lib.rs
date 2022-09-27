@@ -1,8 +1,9 @@
 pub mod builder;
-mod channer;
-mod engine;
-mod frame;
-mod source;
-mod source_reader;
-mod symph;
-mod track;
+pub mod channer;
+pub mod engine;
+pub mod frame;
+pub mod mixer;
+pub mod source;
+pub mod source_reader;
+pub mod symph;
+pub mod track;

@@ -9,9 +9,9 @@ impl SampleRate {
     }
 
     fn sample_to_ms(&self, sample: u32) -> u32 {
-        let ms_per_sample = sample / self.0;
+        let ms_per_sample = sample as f32 / self.0 as f32;
 
-        ms_per_sample * 1000
+        (ms_per_sample * 1000f32) as u32
     }
 }
 
@@ -29,13 +29,15 @@ mod sample_rate_test {
         assert_eq!(sample_rate.ms_to_sample(1), 44);
     }
 
+    #[test]
     fn sample_to_ms() {
         let sample_rate = SampleRate(44100);
 
+        assert_eq!(sample_rate.sample_to_ms(88200), 2000);
         assert_eq!(sample_rate.sample_to_ms(44100), 1000);
         assert_eq!(sample_rate.sample_to_ms(4410), 100);
         assert_eq!(sample_rate.sample_to_ms(441), 10);
-        assert_eq!(sample_rate.sample_to_ms(44), 1);
+        assert_eq!(sample_rate.sample_to_ms(44), 0);
         assert_eq!(sample_rate.sample_to_ms(4), 0);
     }
 }

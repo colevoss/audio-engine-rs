@@ -3,7 +3,7 @@ use crate::{
     source::Source,
     symph::Symphonia,
 };
-use cpal::SupportedStreamConfig;
+use cpal::{StreamConfig, SupportedStreamConfig};
 use rubato::{FftFixedInOut, FftFixedOut, Resampler};
 
 pub struct SourceReader {
@@ -19,10 +19,10 @@ pub struct SourceReader {
 
 // Currently working to convert from source channel count to target channel count
 impl SourceReader {
-    pub fn new(source: Symphonia, config: SupportedStreamConfig) -> Self {
-        let target_sample_rate = config.sample_rate().0;
+    pub fn new(source: Symphonia, config: StreamConfig) -> Self {
+        let target_sample_rate = config.sample_rate.0;
         let source_sample_rate = source.sample_rate().0;
-        let target_channel_count = config.channels() as usize;
+        let target_channel_count = config.channels as usize;
         let source_channel_count = source.channels();
 
         // println!("Sample Rates:");
